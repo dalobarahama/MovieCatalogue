@@ -7,9 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.moviecatalogue.R;
 import com.example.moviecatalogue.fragment.MovieFragment;
 import com.example.moviecatalogue.fragment.TvShowFragment;
-import com.example.moviecatalogue.R;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 

@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Movie implements Parcelable {
+public class TvShow implements Parcelable {
     private String title, description, releaseDate, poster;
 
     public String getTitle() {
@@ -54,15 +54,15 @@ public class Movie implements Parcelable {
         dest.writeString(this.poster);
     }
 
-    public Movie() {
+    public TvShow() {
 
     }
 
-    public Movie(JSONObject jsonObject) {
+    public TvShow(JSONObject jsonObject) {
         try {
-            String title = jsonObject.getString("title");
+            String title = jsonObject.getString("name");
             String description = jsonObject.getString("overview");
-            String releaseDate = jsonObject.getString("release_date");
+            String releaseDate = jsonObject.getString("first_air_date");
             String poster = jsonObject.getString("poster_path");
 
             this.title = title;
@@ -74,22 +74,22 @@ public class Movie implements Parcelable {
         }
     }
 
-    public Movie(Parcel in) {
+    protected TvShow(Parcel in) {
         this.title = in.readString();
         this.description = in.readString();
         this.releaseDate = in.readString();
         this.poster = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Parcelable.Creator<TvShow> CREATOR = new Parcelable.Creator<TvShow>() {
         @Override
-        public Movie createFromParcel(Parcel source) {
-            return new Movie(source);
+        public TvShow createFromParcel(Parcel source) {
+            return new TvShow(source);
         }
 
         @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
+        public TvShow[] newArray(int size) {
+            return new TvShow[size];
         }
     };
 }

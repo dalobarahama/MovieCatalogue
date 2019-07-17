@@ -9,8 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.moviecatalogue.adapter.SectionPagerAdapter;
 import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.adapter.SectionPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
