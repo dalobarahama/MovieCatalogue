@@ -12,8 +12,6 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/movie_item" />
 
-<<<<<<< HEAD
-=======
     <ProgressBar
         android:id="@+id/progress_bar"
         style="?android:attr/progressBarStyle"
@@ -22,5 +20,4 @@
         android:layout_gravity="center"
         android:visibility="gone" />
 
->>>>>>> API
 </FrameLayout>

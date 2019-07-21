@@ -3,17 +3,11 @@ package com.example.moviecatalogue.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-<<<<<<< HEAD
-public class Movie implements Parcelable {
-    private String title, description, releaseDate;
-    private int poster;
-=======
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Movie implements Parcelable {
     private String title, description, releaseDate, poster;
->>>>>>> API
 
     public String getTitle() {
         return title;
@@ -39,19 +33,11 @@ public class Movie implements Parcelable {
         this.releaseDate = releaseDate;
     }
 
-<<<<<<< HEAD
-    public int getPoster() {
-        return poster;
-    }
-
-    public void setPoster(int poster) {
-=======
     public String getPoster() {
         return poster;
     }
 
     public void setPoster(String poster) {
->>>>>>> API
         this.poster = poster;
     }
 
@@ -65,19 +51,6 @@ public class Movie implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.releaseDate);
-<<<<<<< HEAD
-        dest.writeInt(this.poster);
-    }
-
-    public Movie() {
-    }
-
-    protected Movie(Parcel in) {
-        this.title = in.readString();
-        this.description = in.readString();
-        this.releaseDate = in.readString();
-        this.poster = in.readInt();
-=======
         dest.writeString(this.poster);
     }
 
@@ -106,7 +79,6 @@ public class Movie implements Parcelable {
         this.description = in.readString();
         this.releaseDate = in.readString();
         this.poster = in.readString();
->>>>>>> API
     }
 
     public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
