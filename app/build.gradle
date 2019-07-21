@@ -9,6 +9,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "TMDB_API_KEY", '"24cf097387c0de0042eae8bbb91bbc11"')
     }
     buildTypes {
         release {

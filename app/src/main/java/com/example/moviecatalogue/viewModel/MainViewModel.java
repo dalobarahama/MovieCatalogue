@@ -5,6 +5,7 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
+import com.example.moviecatalogue.BuildConfig;
 import com.example.moviecatalogue.model.Movie;
 import com.example.moviecatalogue.model.TvShow;
 import com.loopj.android.http.AsyncHttpClient;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import cz.msebera.android.httpclient.Header;
 
 public class MainViewModel extends ViewModel {
-    private static final String API_KEY = "24cf097387c0de0042eae8bbb91bbc11";
+    private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     private MutableLiveData<ArrayList<TvShow>> listTvShows = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> listMovies = new MutableLiveData<>();
 
