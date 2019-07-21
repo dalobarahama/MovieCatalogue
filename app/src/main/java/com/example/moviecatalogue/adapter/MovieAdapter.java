@@ -10,15 +10,24 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+<<<<<<< HEAD
 import com.example.moviecatalogue.model.Movie;
 import com.example.moviecatalogue.R;
+=======
+import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.model.Movie;
+>>>>>>> API
 
 import java.util.ArrayList;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private Context context;
+<<<<<<< HEAD
     private ArrayList<Movie> movies;
+=======
+    private ArrayList<Movie> movies = new ArrayList<>();
+>>>>>>> API
 
     public MovieAdapter(Context context) {
         this.context = context;
@@ -29,7 +38,13 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public void setMovies(ArrayList<Movie> movies) {
+<<<<<<< HEAD
         this.movies = movies;
+=======
+        this.movies.clear();
+        this.movies.addAll(movies);
+        notifyDataSetChanged();
+>>>>>>> API
     }
 
     @NonNull
