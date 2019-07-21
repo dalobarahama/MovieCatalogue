@@ -4,6 +4,7 @@
     <string name="movie_detail">Movie Detail</string>
     <string name="tab_movie">Movies</string>
     <string name="tab_tvshow">TV Show</string>
+<<<<<<< HEAD
 
     <string-array name="movie_title">
         <item>A Star Is Born</item>
@@ -190,4 +191,8 @@
     </array>
 
 
+=======
+    <string name="title">Title</string>
+    <string name="release_date">Release Date</string>
+>>>>>>> API
 </resources>

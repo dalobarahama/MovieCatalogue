@@ -7,9 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+<<<<<<< HEAD
 import com.example.moviecatalogue.fragment.MovieFragment;
 import com.example.moviecatalogue.fragment.TvShowFragment;
 import com.example.moviecatalogue.R;
+=======
+import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.fragment.MovieFragment;
+import com.example.moviecatalogue.fragment.TvShowFragment;
+>>>>>>> API
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 

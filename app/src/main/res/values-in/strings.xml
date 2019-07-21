@@ -4,6 +4,7 @@
     <string name="movie_detail"> Detail Film </string>
     <string name="tab_movie">Film</string>
     <string name="tab_tvshow">Acara TV</string>
+<<<<<<< HEAD
 
     <string-array name="movie_title">
         <item>A Star Is Born</item>
@@ -188,4 +189,8 @@
         <item>@drawable/poster_the_umbrella</item>
         <item>@drawable/poster_the_walking_dead</item>
     </array>
+=======
+    <string name="title">Judul</string>
+    <string name="release_date">Tanggal Rilis</string>
+>>>>>>> API
 </resources>
