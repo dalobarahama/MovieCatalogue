@@ -1,13 +1,15 @@
 package com.example.moviecatalogue.viewModel;
 
+import android.app.Application;
+import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 
 import com.example.moviecatalogue.BuildConfig;
 import com.example.moviecatalogue.model.Movie;
 import com.example.moviecatalogue.model.TvShow;
+import com.example.moviecatalogue.repository.Repository;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -16,13 +18,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class MainViewModel extends ViewModel {
+public class MainViewModel extends AndroidViewModel {
     private static final String API_KEY = BuildConfig.TMDB_API_KEY;
     private MutableLiveData<ArrayList<TvShow>> listTvShows = new MutableLiveData<>();
     private MutableLiveData<ArrayList<Movie>> listMovies = new MutableLiveData<>();
+
+    private Repository repository;
+    private LiveData<List<Movie>> localMovieList;
+    private LiveData<List<TvShow>> localTvShowList;
+
+    public MainViewModel(Application application) {
+        super(application);
+        repository = new Repository(application);
+        localMovieList = repository.getAllMovies();
+        localTvShowList = repository.getAllTvShows();
+    }
 
     public void setMovies(String type) {
         AsyncHttpClient client = new AsyncHttpClient();
@@ -90,5 +104,37 @@ public class MainViewModel extends ViewModel {
 
     public LiveData<ArrayList<Movie>> getMovies() {
         return listMovies;
+    }
+
+    public void insertMovie(Movie movie) {
+        repository.insertMovie(movie);
+    }
+
+    public void updateMovie(Movie movie) {
+        repository.updateMovie(movie);
+    }
+
+    public void deleteMovie(Movie movie) {
+        repository.deleteMovie(movie);
+    }
+
+    public LiveData<List<Movie>> getLocalMovieList() {
+        return localMovieList;
+    }
+
+    public void insertTvShow(TvShow tvShow) {
+        repository.insertTvShow(tvShow);
+    }
+
+    public void updateTvShow(TvShow tvShow) {
+        repository.updateTvShow(tvShow);
+    }
+
+    public void deleteTvShow(TvShow tvShow) {
+        repository.deleteTvShow(tvShow);
+    }
+
+    public LiveData<List<TvShow>> getLocalTvShowList() {
+        return localTvShowList;
     }
 }

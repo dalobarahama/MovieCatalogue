@@ -4,6 +4,9 @@
     <string name="movie_detail"> Detail Film </string>
     <string name="tab_movie">Film</string>
     <string name="tab_tvshow">Acara TV</string>
+    <string name="tab_movie_favorite">Film Favorit</string>
+    <string name="tab_tvshow_favorite">Acara TV Favorit</string>
     <string name="title">Judul</string>
     <string name="release_date">Tanggal Rilis</string>
+    <string name="favorite">Favorit</string>
 </resources>

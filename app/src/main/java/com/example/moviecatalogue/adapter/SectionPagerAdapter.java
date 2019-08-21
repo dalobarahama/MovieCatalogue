@@ -8,13 +8,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.fragment.MovieFavoriteFragment;
 import com.example.moviecatalogue.fragment.MovieFragment;
+import com.example.moviecatalogue.fragment.TvShowFavoriteFragment;
 import com.example.moviecatalogue.fragment.TvShowFragment;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_movie, R.string.tab_tvshow};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_movie, R.string.tab_tvshow, R.string.tab_movie_favorite, R.string.tab_tvshow_favorite};
     private final Context context;
 
     public SectionPagerAdapter(FragmentManager fm, Context context) {
@@ -31,6 +33,12 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 fragment = new TvShowFragment();
+                break;
+            case 2:
+                fragment = new MovieFavoriteFragment();
+                break;
+            case 3:
+                fragment = new TvShowFavoriteFragment();
                 break;
         }
         return fragment;

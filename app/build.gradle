@@ -38,4 +38,9 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
     implementation 'com.loopj.android:android-async-http:1.4.9'
+
+    //room
+    def room_version = "1.1.1"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 }

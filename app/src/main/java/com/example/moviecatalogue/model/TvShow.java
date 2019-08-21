@@ -1,13 +1,28 @@
 package com.example.moviecatalogue.model;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@Entity(tableName = "tvshow_table")
 public class TvShow implements Parcelable {
+
+    @PrimaryKey(autoGenerate = true)
+    private int id;
+
     private String title, description, releaseDate, poster;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -56,6 +71,13 @@ public class TvShow implements Parcelable {
 
     public TvShow() {
 
+    }
+
+    public TvShow(String title, String description, String releaseDate, String poster) {
+        this.title = title;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.poster = poster;
     }
 
     public TvShow(JSONObject jsonObject) {
