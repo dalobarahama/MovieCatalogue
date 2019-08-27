@@ -1,17 +1,13 @@
 package com.example.moviecatalogue.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@Entity(tableName = "movie_table")
 public class Movie implements Parcelable {
 
-    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String title, description, releaseDate, poster;
@@ -56,37 +52,19 @@ public class Movie implements Parcelable {
         this.poster = poster;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.title);
-        dest.writeString(this.description);
-        dest.writeString(this.releaseDate);
-        dest.writeString(this.poster);
-    }
-
     public Movie() {
 
     }
 
-    public Movie(String title, String description, String releaseDate, String poster) {
-        this.title = title;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.poster = poster;
-    }
-
     public Movie(JSONObject jsonObject) {
         try {
+            String id = jsonObject.getString("id");
             String title = jsonObject.getString("title");
             String description = jsonObject.getString("overview");
             String releaseDate = jsonObject.getString("release_date");
             String poster = jsonObject.getString("poster_path");
 
+            this.id = Integer.parseInt(id);
             this.title = title;
             this.description = description;
             this.releaseDate = releaseDate;
@@ -96,14 +74,29 @@ public class Movie implements Parcelable {
         }
     }
 
-    public Movie(Parcel in) {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.title);
+        dest.writeString(this.description);
+        dest.writeString(this.releaseDate);
+        dest.writeString(this.poster);
+    }
+
+    protected Movie(Parcel in) {
+        this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
         this.releaseDate = in.readString();
         this.poster = in.readString();
     }
 
-    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
         @Override
         public Movie createFromParcel(Parcel source) {
             return new Movie(source);

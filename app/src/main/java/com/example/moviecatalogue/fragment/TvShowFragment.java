@@ -88,6 +88,7 @@ public class TvShowFragment extends Fragment {
 
     private void goToDetails(int position) {
         TvShow tvShow = new TvShow();
+        tvShow.setId(tvShowArrayList.get(position).getId());
         tvShow.setTitle(tvShowArrayList.get(position).getTitle());
         tvShow.setReleaseDate(tvShowArrayList.get(position).getReleaseDate());
         tvShow.setDescription(tvShowArrayList.get(position).getDescription());

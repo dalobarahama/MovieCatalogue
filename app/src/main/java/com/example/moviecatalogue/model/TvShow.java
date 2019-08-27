@@ -1,17 +1,12 @@
 package com.example.moviecatalogue.model;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@Entity(tableName = "tvshow_table")
 public class TvShow implements Parcelable {
-
-    @PrimaryKey(autoGenerate = true)
     private int id;
 
     private String title, description, releaseDate, poster;
@@ -63,6 +58,7 @@ public class TvShow implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.releaseDate);
@@ -73,20 +69,15 @@ public class TvShow implements Parcelable {
 
     }
 
-    public TvShow(String title, String description, String releaseDate, String poster) {
-        this.title = title;
-        this.description = description;
-        this.releaseDate = releaseDate;
-        this.poster = poster;
-    }
-
     public TvShow(JSONObject jsonObject) {
         try {
+            String id = jsonObject.getString("id");
             String title = jsonObject.getString("name");
             String description = jsonObject.getString("overview");
             String releaseDate = jsonObject.getString("first_air_date");
             String poster = jsonObject.getString("poster_path");
 
+            this.id = Integer.parseInt(id);
             this.title = title;
             this.description = description;
             this.releaseDate = releaseDate;
@@ -97,6 +88,7 @@ public class TvShow implements Parcelable {
     }
 
     protected TvShow(Parcel in) {
+        this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
         this.releaseDate = in.readString();

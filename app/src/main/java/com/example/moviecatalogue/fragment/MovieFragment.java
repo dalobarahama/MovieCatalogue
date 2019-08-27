@@ -87,6 +87,7 @@ public class MovieFragment extends Fragment {
 
     private void goToDetails(int position) {
         Movie movie = new Movie();
+        movie.setId(movieArrayList.get(position).getId());
         movie.setTitle(movieArrayList.get(position).getTitle());
         movie.setReleaseDate(movieArrayList.get(position).getReleaseDate());
         movie.setDescription(movieArrayList.get(position).getDescription());

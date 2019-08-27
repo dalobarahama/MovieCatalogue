@@ -1,6 +1,5 @@
 package com.example.moviecatalogue.activity;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -13,8 +12,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.database.FavoriteHelper;
 import com.example.moviecatalogue.model.Movie;
-import com.example.moviecatalogue.viewModel.MainViewModel;
 
 public class MovieDetailActivity extends AppCompatActivity {
     public static final String EXTRA_MOVIE =
@@ -24,9 +23,9 @@ public class MovieDetailActivity extends AppCompatActivity {
     private ImageView imageViewPoster;
     private ProgressBar progressBar;
 
-    private boolean favorited = false;
-    private MainViewModel mainViewModel;
+    private FavoriteHelper favoriteHelper;
     private Movie movie;
+    private boolean favorited;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +40,7 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        favoriteHelper = FavoriteHelper.getInstance(getApplicationContext());
 
         addMovie();
 
@@ -74,22 +73,33 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        favorited = favoriteHelper.searchFavoriteMovie(movie.getTitle());
+        if (favorited) {
+            menu.findItem(R.id.favorite_menu).setIcon(R.drawable.ic_favorite);
+        } else {
+            menu.findItem(R.id.favorite_menu).setIcon(R.drawable.ic_favorite_border);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.favorite_menu) {
+            favoriteHelper.open();
             if (favorited) {
-                Toast.makeText(this, "Unfavorited", Toast.LENGTH_SHORT).show();
+                favoriteHelper.deleteFavoriteMovie(movie.getId());
                 item.setIcon(R.drawable.ic_favorite_border);
-                favorited = false;
-
-                mainViewModel.deleteMovie(movie);
+                Toast.makeText(this, "Unfavorited", Toast.LENGTH_SHORT).show();
             } else {
-                Toast.makeText(this, "Favorited", Toast.LENGTH_SHORT).show();
+                favoriteHelper.insertFavoriteMovie(movie);
                 item.setIcon(R.drawable.ic_favorite);
-                favorited = true;
-
-                mainViewModel.insertMovie(movie);
+                Toast.makeText(this, "Favorited", Toast.LENGTH_SHORT).show();
             }
+
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

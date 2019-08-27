@@ -1,10 +1,8 @@
 package com.example.moviecatalogue.fragment;
 
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,20 +12,22 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
 import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.activity.TvShowDetailActivity;
 import com.example.moviecatalogue.adapter.TvShowAdapter;
+import com.example.moviecatalogue.database.FavoriteHelper;
 import com.example.moviecatalogue.model.TvShow;
-import com.example.moviecatalogue.viewModel.MainViewModel;
+import com.example.moviecatalogue.utils.ItemClickSupport;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TvShowFavoriteFragment extends Fragment {
     private TvShowAdapter tvShowAdapter;
-    private ArrayList tvShowArrayList;
+    private ArrayList<TvShow> tvShowArrayList;
     private ProgressBar progressBar;
+    private FavoriteHelper favoriteHelper;
 
     public TvShowFavoriteFragment() {
         // Required empty public constructor
@@ -41,26 +41,43 @@ public class TvShowFavoriteFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progress_bar);
 
-        MainViewModel mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        mainViewModel.getLocalTvShowList().observe(getActivity(), new Observer<List<TvShow>>() {
-            @Override
-            public void onChanged(@Nullable List<TvShow> tvShows) {
-                tvShowArrayList = new ArrayList();
-
-                if (tvShows != null){
-                    tvShowAdapter.setTvShows(tvShows);
-                    tvShowArrayList.addAll(tvShows);
-                }
-            }
-        });
+        favoriteHelper = FavoriteHelper.getInstance(getActivity());
+        tvShowArrayList = favoriteHelper.getAllFavoriteTvShows();
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tvShowAdapter = new TvShowAdapter(getActivity());
+        tvShowAdapter.setTvShows(tvShowArrayList);
+        tvShowAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(tvShowAdapter);
+
+        ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View view) {
+                goToDetails(position);
+            }
+        });
 
         return view;
     }
 
+    private void goToDetails(int position) {
+        TvShow tvShow = new TvShow();
+        tvShow.setId(tvShowArrayList.get(position).getId());
+        tvShow.setTitle(tvShowArrayList.get(position).getTitle());
+        tvShow.setReleaseDate(tvShowArrayList.get(position).getReleaseDate());
+        tvShow.setDescription(tvShowArrayList.get(position).getDescription());
+        tvShow.setPoster(tvShowArrayList.get(position).getPoster());
+
+        Intent intent = new Intent(getActivity(), TvShowDetailActivity.class);
+        intent.putExtra(TvShowDetailActivity.EXTRA_TVSHOW, tvShow);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        favoriteHelper.close();
+    }
 }

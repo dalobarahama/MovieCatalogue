@@ -8,12 +8,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviecatalogue.R;
 import com.example.moviecatalogue.model.TvShow;
-import com.example.moviecatalogue.utils.CustomOnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,6 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
     private Context context;
     private ArrayList<TvShow> tvShows = new ArrayList<>();
-    private boolean favorited = false;
 
     public TvShowAdapter(Context context) {
         this.context = context;
