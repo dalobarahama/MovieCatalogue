@@ -18,7 +18,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_MOVIE = String.format("CREATE TABLE %s"
                     + " (%s INTEGER PRIMARY KEY," +
                     " %s TEXT NOT NULL," +
-                    " &s TEXT NOT NULL," +
+                    " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL)",
             TABLE_MOVIE,
@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_TVSHOW = String.format("CREATE TABLE %s"
                     + " (%s INTEGER PRIMARY KEY," +
                     " %s TEXT NOT NULL," +
-                    " &s TEXT NOT NULL," +
+                    " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL," +
                     " %s TEXT NOT NULL)",
             TABLE_TVSHOW,

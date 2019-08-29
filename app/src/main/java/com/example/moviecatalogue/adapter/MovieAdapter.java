@@ -29,7 +29,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(ArrayList<Movie> movies) {
         this.movies.clear();
         this.movies.addAll(movies);
         notifyDataSetChanged();

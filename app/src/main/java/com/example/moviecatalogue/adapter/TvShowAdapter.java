@@ -29,7 +29,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         return tvShows;
     }
 
-    public void setTvShows(List<TvShow> tvShows) {
+    public void setTvShows(ArrayList<TvShow> tvShows) {
         this.tvShows.clear();
         this.tvShows.addAll(tvShows);
         notifyDataSetChanged();
@@ -51,21 +51,6 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
         Glide.with(context)
                 .load(tvShows.get(i).getPoster())
                 .into(tvShowViewHolder.poster);
-        /*
-        tvShowViewHolder.favorite.setOnClickListener(new CustomOnItemClickListener(i, new CustomOnItemClickListener.OnItemClickCallback() {
-            @Override
-            public void onItemClicked(View view, int position) {
-                if (favorited) {
-                    Toast.makeText(context, "Unfavorited", Toast.LENGTH_SHORT).show();
-                    tvShowViewHolder.favorite.setBackground(view.getResources().getDrawable(R.drawable.ic_favorite_border));
-                    favorited = false;
-                } else {
-                    Toast.makeText(context, "Favorited", Toast.LENGTH_SHORT).show();
-                    tvShowViewHolder.favorite.setBackground(view.getResources().getDrawable(R.drawable.ic_favorite));
-                    favorited = true;
-                }
-            }
-        })); */
     }
 
     @Override
