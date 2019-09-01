@@ -10,24 +10,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-<<<<<<< HEAD
-import com.example.moviecatalogue.model.Movie;
-import com.example.moviecatalogue.R;
-=======
 import com.example.moviecatalogue.R;
 import com.example.moviecatalogue.model.Movie;
->>>>>>> API
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder> {
 
     private Context context;
-<<<<<<< HEAD
-    private ArrayList<Movie> movies;
-=======
     private ArrayList<Movie> movies = new ArrayList<>();
->>>>>>> API
 
     public MovieAdapter(Context context) {
         this.context = context;
@@ -38,13 +30,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     public void setMovies(ArrayList<Movie> movies) {
-<<<<<<< HEAD
-        this.movies = movies;
-=======
         this.movies.clear();
         this.movies.addAll(movies);
         notifyDataSetChanged();
->>>>>>> API
     }
 
     @NonNull
@@ -55,7 +43,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MovieViewHolder movieViewHolder, int i) {
         movieViewHolder.title.setText(movies.get(i).getTitle());
         movieViewHolder.releaseDate.setText(movies.get(i).getReleaseDate());
         movieViewHolder.description.setText(movies.get(i).getDescription());
@@ -72,7 +60,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
         private TextView title, releaseDate, description;
-        private ImageView poster;
+        private ImageView poster, favorite;
 
         MovieViewHolder(View view) {
             super(view);
@@ -81,6 +69,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             releaseDate = view.findViewById(R.id.movie_release_date);
             description = view.findViewById(R.id.movie_description);
             poster = view.findViewById(R.id.movie_poster);
+            favorite = view.findViewById(R.id.favorite_image);
         }
     }
 }

@@ -10,7 +10,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField("String", "TMDB_API_KEY", '""')
+        buildConfigField("String", "TMDB_API_KEY", '"24cf097387c0de0042eae8bbb91bbc11"')
     }
     buildTypes {
         release {
@@ -38,4 +38,12 @@ dependencies {
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
     implementation 'com.loopj.android:android-async-http:1.4.9'
+
+
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+
+    //room
+    def room_version = "1.1.1"
+    implementation "android.arch.persistence.room:runtime:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
 }

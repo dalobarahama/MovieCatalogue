@@ -1,11 +1,8 @@
 package com.example.moviecatalogue.fragment;
 
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,38 +14,42 @@ import android.widget.ProgressBar;
 import com.example.moviecatalogue.R;
 import com.example.moviecatalogue.activity.TvShowDetailActivity;
 import com.example.moviecatalogue.adapter.TvShowAdapter;
+import com.example.moviecatalogue.database.FavoriteHelper;
 import com.example.moviecatalogue.model.TvShow;
 import com.example.moviecatalogue.utils.ItemClickSupport;
-import com.example.moviecatalogue.viewModel.MainViewModel;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TvShowFragment extends Fragment {
+public class TvShowFavoriteFragment extends Fragment {
     private TvShowAdapter tvShowAdapter;
     private ArrayList<TvShow> tvShowArrayList;
     private ProgressBar progressBar;
+    private FavoriteHelper favoriteHelper;
 
-    public TvShowFragment() {
-
+    public TvShowFavoriteFragment() {
+        // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_tv_show, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_tv_show_favorite, container, false);
 
         progressBar = view.findViewById(R.id.progress_bar);
 
-        MainViewModel mainViewModel = ViewModelProviders.of(getActivity()).get(MainViewModel.class);
-        mainViewModel.getTvShow().observe(getActivity(), getTvShow);
+        favoriteHelper = FavoriteHelper.getInstance(getActivity());
+        tvShowArrayList = favoriteHelper.getAllFavoriteTvShows();
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         tvShowAdapter = new TvShowAdapter(getActivity());
+        tvShowAdapter.setTvShows(tvShowArrayList);
+        tvShowAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(tvShowAdapter);
 
         ItemClickSupport.addTo(recyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
@@ -58,33 +59,8 @@ public class TvShowFragment extends Fragment {
             }
         });
 
-        mainViewModel.setMovies("tvShow");
-        showLoading(true);
-
         return view;
     }
-
-    private Observer<ArrayList<TvShow>> getTvShow = new Observer<ArrayList<TvShow>>() {
-        @Override
-        public void onChanged(@Nullable ArrayList<TvShow> tvShows) {
-            tvShowArrayList = new ArrayList<>();
-
-            if (tvShows != null) {
-                tvShowAdapter.setTvShows(tvShows);
-                tvShowArrayList.addAll(tvShows);
-                showLoading(false);
-            }
-        }
-    };
-
-    private void showLoading(Boolean state) {
-        if (state) {
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            progressBar.setVisibility(View.GONE);
-        }
-    }
-
 
     private void goToDetails(int position) {
         TvShow tvShow = new TvShow();
@@ -99,4 +75,9 @@ public class TvShowFragment extends Fragment {
         startActivity(intent);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        favoriteHelper.close();
+    }
 }

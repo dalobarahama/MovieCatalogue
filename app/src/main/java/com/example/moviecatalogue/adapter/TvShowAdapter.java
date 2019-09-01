@@ -14,6 +14,7 @@ import com.example.moviecatalogue.R;
 import com.example.moviecatalogue.model.TvShow;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder> {
 
@@ -42,7 +43,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TvShowViewHolder tvShowViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final TvShowViewHolder tvShowViewHolder, int i) {
         tvShowViewHolder.title.setText(tvShows.get(i).getTitle());
         tvShowViewHolder.releaseDate.setText(tvShows.get(i).getReleaseDate());
         tvShowViewHolder.description.setText(tvShows.get(i).getDescription());
@@ -59,7 +60,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
 
     class TvShowViewHolder extends RecyclerView.ViewHolder {
         private TextView title, releaseDate, description;
-        private ImageView poster;
+        private ImageView poster, favorite;
 
         public TvShowViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -68,6 +69,7 @@ public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.TvShowView
             releaseDate = itemView.findViewById(R.id.movie_release_date);
             description = itemView.findViewById(R.id.movie_description);
             poster = itemView.findViewById(R.id.movie_poster);
+            favorite = itemView.findViewById(R.id.favorite_image);
         }
     }
 }
