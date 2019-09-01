@@ -1,20 +1,22 @@
 package com.example.moviecatalogue.adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.fragment.MovieFavoriteFragment;
 import com.example.moviecatalogue.fragment.MovieFragment;
+import com.example.moviecatalogue.fragment.TvShowFavoriteFragment;
 import com.example.moviecatalogue.fragment.TvShowFragment;
 
 public class SectionPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_movie, R.string.tab_tvshow};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_movie, R.string.tab_tvshow, R.string.tab_movie_favorite, R.string.tab_tvshow_favorite};
     private final Context context;
 
     public SectionPagerAdapter(FragmentManager fm, Context context) {
@@ -31,6 +33,12 @@ public class SectionPagerAdapter extends FragmentPagerAdapter {
                 break;
             case 1:
                 fragment = new TvShowFragment();
+                break;
+            case 2:
+                fragment = new MovieFavoriteFragment();
+                break;
+            case 3:
+                fragment = new TvShowFavoriteFragment();
                 break;
         }
         return fragment;

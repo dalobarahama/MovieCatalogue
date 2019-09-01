@@ -1,14 +1,18 @@
 package com.example.moviecatalogue.activity;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.moviecatalogue.R;
+import com.example.moviecatalogue.database.FavoriteHelper;
 import com.example.moviecatalogue.model.Movie;
 
 public class MovieDetailActivity extends AppCompatActivity {
@@ -18,6 +22,10 @@ public class MovieDetailActivity extends AppCompatActivity {
     private TextView textViewTitle, textViewReleaseDate, textViewDescription;
     private ImageView imageViewPoster;
     private ProgressBar progressBar;
+
+    private FavoriteHelper favoriteHelper;
+    private Movie movie;
+    private boolean favorited;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +40,8 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.VISIBLE);
 
+        favoriteHelper = FavoriteHelper.getInstance(getApplicationContext());
+
         addMovie();
 
         if (getSupportActionBar() != null) {
@@ -40,7 +50,7 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void addMovie() {
-        Movie movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
+        movie = getIntent().getParcelableExtra(EXTRA_MOVIE);
         String title = movie.getTitle();
         String releaseDate = movie.getReleaseDate();
         String description = movie.getDescription();
@@ -55,4 +65,41 @@ public class MovieDetailActivity extends AppCompatActivity {
 
         progressBar.setVisibility(View.GONE);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.favorite, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        favorited = favoriteHelper.searchFavoriteMovie(movie.getTitle());
+        if (favorited) {
+            menu.findItem(R.id.favorite_menu).setIcon(R.drawable.ic_favorite);
+        } else {
+            menu.findItem(R.id.favorite_menu).setIcon(R.drawable.ic_favorite_border);
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.favorite_menu) {
+            favoriteHelper.open();
+            if (favorited) {
+                favoriteHelper.deleteFavoriteMovie(movie.getId());
+                item.setIcon(R.drawable.ic_favorite_border);
+                Toast.makeText(this, "Unfavorited", Toast.LENGTH_SHORT).show();
+            } else {
+                favoriteHelper.insertFavoriteMovie(movie);
+                item.setIcon(R.drawable.ic_favorite);
+                Toast.makeText(this, "Favorited", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

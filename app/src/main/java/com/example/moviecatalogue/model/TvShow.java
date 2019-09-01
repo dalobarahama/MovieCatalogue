@@ -7,7 +7,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class TvShow implements Parcelable {
+    private int id;
+
     private String title, description, releaseDate, poster;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -48,6 +58,7 @@ public class TvShow implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.title);
         dest.writeString(this.description);
         dest.writeString(this.releaseDate);
@@ -60,11 +71,13 @@ public class TvShow implements Parcelable {
 
     public TvShow(JSONObject jsonObject) {
         try {
+            String id = jsonObject.getString("id");
             String title = jsonObject.getString("name");
             String description = jsonObject.getString("overview");
             String releaseDate = jsonObject.getString("first_air_date");
             String poster = jsonObject.getString("poster_path");
 
+            this.id = Integer.parseInt(id);
             this.title = title;
             this.description = description;
             this.releaseDate = releaseDate;
@@ -75,6 +88,7 @@ public class TvShow implements Parcelable {
     }
 
     protected TvShow(Parcel in) {
+        this.id = in.readInt();
         this.title = in.readString();
         this.description = in.readString();
         this.releaseDate = in.readString();

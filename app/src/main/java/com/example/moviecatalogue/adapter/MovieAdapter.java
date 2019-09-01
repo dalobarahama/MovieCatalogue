@@ -1,8 +1,8 @@
 package com.example.moviecatalogue.adapter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +42,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder movieViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final MovieViewHolder movieViewHolder, int i) {
         movieViewHolder.title.setText(movies.get(i).getTitle());
         movieViewHolder.releaseDate.setText(movies.get(i).getReleaseDate());
         movieViewHolder.description.setText(movies.get(i).getDescription());
@@ -59,7 +59,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     class MovieViewHolder extends RecyclerView.ViewHolder {
         private TextView title, releaseDate, description;
-        private ImageView poster;
+        private ImageView poster, favorite;
 
         MovieViewHolder(View view) {
             super(view);
@@ -68,6 +68,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             releaseDate = view.findViewById(R.id.movie_release_date);
             description = view.findViewById(R.id.movie_description);
             poster = view.findViewById(R.id.movie_poster);
+            favorite = view.findViewById(R.id.favorite_image);
         }
     }
 }
